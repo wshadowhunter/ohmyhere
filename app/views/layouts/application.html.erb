@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Online Vote and Post System</title>
+
+</head>
+<body id="store">
+<div id="banner">
+<%= image_tag("ncsu12.png" ) %>
+<%= @page_title || "ECE/CSC517 PROJECT1" %>
+</div>
+<div id="columns">
+  <div id="side">
+
+  <a href="  http://localhost:3000">Home</a><br />
+  <a href="  http://localhost:3000/users/new">Create User</a><br />
+  <a href="  http://localhost:3000/login">Login</a><br />
+  <% if session[:user_id] %>
+  <br />
+  <%  @admin_flag = 'No' %>
+  <%= link_to 'Post and Reply', products_path %><br />
+  <%  if User.find(session[:user_id]).admin == 1 %>
+  <%  @admin_flag = 'Yes' %>
+  <%= link_to 'Users', users_path %><br />
+  <% end %>
+  <br />
+
+  <tag> Welcome: <%= User.find(session[:user_id]).name%></tag> </br>
+  <tag> Administrator: <%= @admin_flag %></tag></br>
+
+  <%= button_to 'Logout', logout_path, :method => :delete %>
+  <% end %>
+  </div>
+
+<div id="main">
+<%= yield %>
+</div>
+</div>
+</body>
+</html>
